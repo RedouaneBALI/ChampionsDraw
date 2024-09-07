@@ -34,11 +34,13 @@ public class DrawGenerator {
         }
       }
     }
+    // display draw
     for (Team team : teams) {
       team.sortTeamDrawByPot();
       System.out.println(team.getName() + " : " + team.getOpponents());
     }
     System.out.println();
+    // display games
     for (Game game : games) {
       System.out.println(game);
     }
@@ -59,27 +61,6 @@ public class DrawGenerator {
     game.getTeamB().getOpponents().removeIf(t -> t.equals(game.getTeamA()));
   }
 
-  public void deleteAllGamesBasedOnPots(int teamPot, int opponentPot) {
-    Iterator<Game> iterator = games.iterator();
-
-    System.out.println("rolling back pots " + teamPot + "&" + opponentPot + "...");
-    while (iterator.hasNext()) {
-      Game game = iterator.next();
-      if (areTeamsFromPots(game, teamPot, opponentPot)) {
-        deleteOpponents(game);
-        iterator.remove();
-      }
-    }
-
-  }
-
-  private boolean areTeamsFromPots(Game game, int pot1, int pot2) {
-    int teamAPot = game.getTeamA().getPot();
-    int teamBPot = game.getTeamB().getPot();
-
-    return (teamAPot == pot1 && teamBPot == pot2) || (teamAPot == pot2 && teamBPot == pot1);
-  }
-
   public Team getRandomTeam(Team team, int pot, int nbGamesPerPot) {
     List<Team> potentialOpponents = getPotentialOpponents(team, pot, nbGamesPerPot);
     if (potentialOpponents.size() == 0) {
@@ -91,6 +72,24 @@ public class DrawGenerator {
     return potentialOpponents.get(randomIndex);
   }
 
+  public void deleteAllGamesBasedOnPots(int teamPot, int opponentPot) {
+    Iterator<Game> iterator = games.iterator();
+    System.out.println("rolling back pots " + teamPot + "&" + opponentPot + "...");
+    while (iterator.hasNext()) {
+      Game game = iterator.next();
+      if (areTeamsFromPots(game, teamPot, opponentPot)) {
+        deleteOpponents(game);
+        iterator.remove();
+      }
+    }
+  }
+
+  private boolean areTeamsFromPots(Game game, int pot1, int pot2) {
+    int teamAPot = game.getTeamA().getPot();
+    int teamBPot = game.getTeamB().getPot();
+    return (teamAPot == pot1 && teamBPot == pot2) || (teamAPot == pot2 && teamBPot == pot1);
+  }
+
   public List<Team> getPotentialOpponents(Team team, int pot, int nbGamesPerPot) {
 
     return teams.stream()
@@ -99,8 +98,8 @@ public class DrawGenerator {
                 .filter(t -> !team.getOpponents().contains(t)) // not already opponent
                 .filter(t -> t.getNbOpponentByPot(team.getPot()) < nbGamesPerPot) // didn't already play the quantity of needed games
                 .filter(t -> !t.getCountry().getCountry().equals(team.getCountry().getCountry())) // from another country
-                .filter(t -> t.getNbOpponentBycountry(team.getCountry()) < MAX_OPPONENTS_SAME_COUNTRY)
-                .filter(t -> team.getNbOpponentBycountry(t.getCountry()) < MAX_OPPONENTS_SAME_COUNTRY)
+                .filter(t -> t.getNbOpponentBycountry(team.getCountry()) < MAX_OPPONENTS_SAME_COUNTRY) // opponent didn't play too much same country
+                .filter(t -> team.getNbOpponentBycountry(t.getCountry()) < MAX_OPPONENTS_SAME_COUNTRY) // team didn't play too much same country
                 .toList();
   }
 

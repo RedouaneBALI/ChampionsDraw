@@ -5,11 +5,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import lombok.Getter;
-import lombok.Setter;
 
 
 @Getter
-@Setter
 public class Team {
 
   String     name;
@@ -24,10 +22,8 @@ public class Team {
   }
 
   public Team(String name, int pot, Locale country) {
-    this.name      = name;
-    this.pot       = pot;
-    this.country   = country;
-    this.opponents = new ArrayList<>();
+    this(name, pot);
+    this.country = country;
   }
 
   public int getNbOpponentByPot(int pot) {

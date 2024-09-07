@@ -6,7 +6,7 @@ import java.util.Locale;
 public class Main {
 
   public static void main(String[] args) {
-    // Chapeau 1
+    // pot 1
     Team realMadrid     = new Team("Real Madrid", 1, new Locale("", "ES"));
     Team manchesterCity = new Team("Manchester City", 1, new Locale("", "GB"));
     Team bayernMunich   = new Team("Bayern Munich", 1, new Locale("", "DE"));
@@ -16,7 +16,7 @@ public class Main {
     Team dortmund       = new Team("Dortmund", 1, new Locale("", "DE"));
     Team leipzig        = new Team("Leipzig", 1, new Locale("", "DE"));
     Team barcelona      = new Team("Barcelona", 1, new Locale("", "ES"));
-// Chapeau 2
+    // pot 2
     Team leverkusen      = new Team("Leverkusen", 2, new Locale("", "DE"));
     Team atleticoMadrid  = new Team("Atletico de Madrid", 2, new Locale("", "ES"));
     Team atalanta        = new Team("Atalanta", 2, new Locale("", "IT"));
@@ -26,7 +26,7 @@ public class Main {
     Team clubBrugge      = new Team("Club Bruges", 2, new Locale("", "BE"));
     Team shakhtarDonetsk = new Team("Shakhtar Donetsk", 2, new Locale("", "UA"));
     Team acMilan         = new Team("AC Milan", 2, new Locale("", "IT"));
-// Chapeau 3
+    // pot 3
     Team feyenoord    = new Team("Feyenoord", 3, new Locale("", "NL"));
     Team sporting     = new Team("Sporting", 3, new Locale("", "PT"));
     Team psvEindhoven = new Team("PSV Eindhoven", 3, new Locale("", "NL"));
@@ -36,7 +36,7 @@ public class Main {
     Team etoileRouge  = new Team("Etoile Rouge", 3, new Locale("", "RS"));
     Team youngBoys    = new Team("Young Boys", 3, new Locale("", "CH"));
     Team celtic       = new Team("Celtic", 3, new Locale("", "GB"));
-// Chapeau 4
+    // pot 4
     Team slovanBratislava = new Team("Slovan Bratislava", 4, new Locale("", "SK"));
     Team monaco           = new Team("Monaco", 4, new Locale("", "FR"));
     Team spartaPrague     = new Team("Sparta Prague", 4, new Locale("", "CZ"));
@@ -46,8 +46,7 @@ public class Main {
     Team stuttgart        = new Team("Stuttgart", 4, new Locale("", "DE"));
     Team sturmGraz        = new Team("Sturm Graz", 4, new Locale("", "AT"));
     Team brest            = new Team("Brest", 4, new Locale("", "FR"));
-
-// Creation de la liste de toutes les equipes
+    
     List<Team> allTeams = List.of(
         realMadrid, manchesterCity, bayernMunich, psg, liverpool, inter, dortmund, leipzig, barcelona,
         leverkusen, atleticoMadrid, atalanta, juventus, benfica, arsenal, clubBrugge, shakhtarDonetsk, acMilan,
