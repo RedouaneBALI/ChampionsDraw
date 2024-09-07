@@ -1,4 +1,4 @@
-Quick project to implement the algorithm used for the UFA Champion's League 2024/2025 draw.
+Quick project to implement the algorithm used for the UEFA Champion's League 2024/2025 draw.
 => 36 teams split in 4 pots
 => Each team has to play randomly 2 opponents of each pots
 => A club cannot play against another club of its country
