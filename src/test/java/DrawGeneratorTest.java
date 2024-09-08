@@ -110,6 +110,4 @@ public class DrawGeneratorTest {
     assertFalse(teamA.getOpponents().contains(teamB));
     assertFalse(teamB.getOpponents().contains(teamA));
   }
-
-
 }

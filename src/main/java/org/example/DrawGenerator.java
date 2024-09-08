@@ -50,6 +50,16 @@ public class DrawGenerator {
     return teams.stream().allMatch(team -> team.hasEnoughOpponents(expectedGamesCount));
   }
 
+  public int getNbOpponentByPot(Team team, int pot, boolean isHome) {
+    int count = 0;
+    for (Game game : games) {
+      if (game.getTeamA() == team && isHome || game.getTeamB() == team && !isHome) {
+        count++;
+      }
+    }
+    return count;
+  }
+
   public void addGame(Team team, Team opponent) {
     team.addOpponent(opponent);
     opponent.addOpponent(team);
@@ -97,9 +107,14 @@ public class DrawGenerator {
                 .filter(t -> t.getPot() == pot) // right pot
                 .filter(t -> !team.getOpponents().contains(t)) // not already opponent
                 .filter(t -> t.getNbOpponentByPot(team.getPot()) < nbGamesPerPot) // didn't already play the quantity of needed games
-                .filter(t -> !t.getCountry().getCountry().equals(team.getCountry().getCountry())) // from another country
-                .filter(t -> t.getNbOpponentBycountry(team.getCountry()) < MAX_OPPONENTS_SAME_COUNTRY) // opponent didn't play too much same country
-                .filter(t -> team.getNbOpponentBycountry(t.getCountry()) < MAX_OPPONENTS_SAME_COUNTRY) // team didn't play too much same country
+                .filter(t -> t.getCountry() == null || !t.getCountry()
+                                                         .getCountry()
+                                                         .equals(team.getCountry().getCountry())) // from another country
+                .filter(t -> t.getCountry() == null
+                             || t.getNbOpponentBycountry(team.getCountry())
+                                < MAX_OPPONENTS_SAME_COUNTRY) // opponent didn't play too much same country
+                .filter(t -> t.getCountry() == null
+                             || team.getNbOpponentBycountry(t.getCountry()) < MAX_OPPONENTS_SAME_COUNTRY) // team didn't play too much same country
                 .toList();
   }
 
