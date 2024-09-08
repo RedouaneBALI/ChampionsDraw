@@ -55,20 +55,41 @@ public class DrawGeneratorTest {
 
   @Test
   public void testGetPotentialOpponents() {
-    team2B.addOpponent(team1A);
-    team2B.addOpponent(team1B);
-    DrawGenerator generator = new DrawGenerator(teams3x3);
-    assertFalse(generator.getPotentialOpponents(team1C, 2, 2).contains(team2B));
+    team2B.addOpponent(team1A, true);
+    team2B.addOpponent(team1B, false);
+    DrawGenerator generator              = new DrawGenerator(teams3x3);
+    List<Team>    potentialOpponentsHome = generator.getPotentialOpponents(team1C, 2, 2, true);
+    List<Team>    potentialOpponentsAway = generator.getPotentialOpponents(team1C, 2, 2, false);
+    assertFalse(potentialOpponentsHome.contains(team2B));
+    assertFalse(potentialOpponentsAway.contains(team2B));
   }
 
   @Test
   public void testGetPotentialOpponents2() {
-    team1A.addOpponent(team1B);
-    team1A.addOpponent(team1C);
+    team1A.addOpponent(team1B, true);
+    team1A.addOpponent(team1C, false);
     DrawGenerator generator = new DrawGenerator(teams3x3);
-    assertTrue(generator.getPotentialOpponents(team1A, 2, 2).contains(team2B));
-    assertTrue(generator.getPotentialOpponents(team1B, 2, 2).contains(team2B));
+    assertTrue(generator.getPotentialOpponents(team1A, 2, 2, false).contains(team2B));
+    assertTrue(generator.getPotentialOpponents(team1B, 2, 2, true).contains(team2B));
   }
+
+  @Test
+  public void testGetPotentialOpponentsHomeAway() {
+    DrawGenerator generator = new DrawGenerator(teams3x3);
+    team1A.addOpponent(team2B, true); // 1A vs 2B
+    team2A.addOpponent(team1C, true); // 2A vs 1C
+    // 1C cannot play away VS 2A
+    assertFalse(generator.getPotentialOpponents(team1C, 2, 2, true).contains(team2A));
+    // 2C cannot play away VS 1A
+    assertFalse(generator.getPotentialOpponents(team2C, 1, 2, true).contains(team1A));
+    team1A.addOpponent(team3C, false); // 3C vs 1A
+    team2A.addOpponent(team3C, false); // 3C vs 2A
+    // 1B cannot play away vs 3C
+    assertFalse(generator.getPotentialOpponents(team1B, 3, 2, true).contains(team3C));
+    // 2B cannot play away vs 3C
+    assertFalse(generator.getPotentialOpponents(team2B, 3, 2, true).contains(team3C));
+  }
+
 
   @Test
   public void testStartDraw3x3() {
@@ -76,10 +97,15 @@ public class DrawGeneratorTest {
     generator.startDraw(3, 2);
 
     for (Team team : teams3x3) {
-      assertEquals(6, team.getOpponents().size());
-      assertEquals(2, team.getNbOpponentByPot(1));
-      assertEquals(2, team.getNbOpponentByPot(2));
-      assertEquals(2, team.getNbOpponentByPot(3));
+      assertEquals(6, team.getAllOpponents().size());
+      assertEquals(3, team.getHomeOpponents().size());
+      assertEquals(3, team.getAwayOpponents().size());
+      assertEquals(1, team.getNbHomeOpponentByPot(1));
+      assertEquals(1, team.getNbHomeOpponentByPot(1));
+      assertEquals(1, team.getNbHomeOpponentByPot(2));
+      assertEquals(1, team.getNbHomeOpponentByPot(2));
+      assertEquals(1, team.getNbHomeOpponentByPot(3));
+      assertEquals(1, team.getNbHomeOpponentByPot(3));
     }
   }
 
@@ -87,13 +113,16 @@ public class DrawGeneratorTest {
   public void testStartDraw4x4() {
     DrawGenerator generator = new DrawGenerator(teams4x4);
     generator.startDraw(4, 2);
-
     for (Team team : teams4x4) {
-      assertEquals(8, team.getOpponents().size());
-      assertEquals(2, team.getNbOpponentByPot(1));
-      assertEquals(2, team.getNbOpponentByPot(2));
-      assertEquals(2, team.getNbOpponentByPot(3));
-      assertEquals(2, team.getNbOpponentByPot(4));
+      assertEquals(8, team.getAllOpponents().size());
+      assertEquals(1, team.getNbHomeOpponentByPot(1));
+      assertEquals(1, team.getNbAwayOpponentByPot(1));
+      assertEquals(1, team.getNbHomeOpponentByPot(2));
+      assertEquals(1, team.getNbAwayOpponentByPot(2));
+      assertEquals(1, team.getNbHomeOpponentByPot(3));
+      assertEquals(1, team.getNbAwayOpponentByPot(3));
+      assertEquals(1, team.getNbHomeOpponentByPot(4));
+      assertEquals(1, team.getNbAwayOpponentByPot(4));
     }
   }
 
@@ -107,7 +136,17 @@ public class DrawGeneratorTest {
 
     generator.deleteAllGamesBasedOnPots(teamA.getPot(), teamB.getPot());
 
-    assertFalse(teamA.getOpponents().contains(teamB));
-    assertFalse(teamB.getOpponents().contains(teamA));
+    assertFalse(teamA.getAllOpponents().contains(teamB));
+    assertFalse(teamB.getAllOpponents().contains(teamA));
+  }
+
+
+  @Test
+  public void testGetNbOpponentsByPot() {
+    DrawGenerator generator = new DrawGenerator(teams4x4);
+    assertEquals(0, generator.getNbOpponentByPot(team1A, 1, true));
+    generator.startDraw(4, 2);
+    assertEquals(1, generator.getNbOpponentByPot(team1A, 1, true));
+    assertEquals(1, generator.getNbOpponentByPot(team1A, 1, false));
   }
 }
