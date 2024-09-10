@@ -34,6 +34,10 @@ public class DrawGenerator {
         }
       }
     }
+    printDraw();
+  }
+
+  private void printDraw() {
 
     // display draw
     for (Team team : teams) {
