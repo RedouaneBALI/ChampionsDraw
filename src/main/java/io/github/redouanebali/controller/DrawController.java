@@ -2,6 +2,7 @@ package io.github.redouanebali.controller;
 
 import io.github.redouanebali.model.Team;
 import io.github.redouanebali.service.DrawService;
+import io.github.redouanebali.service.Level;
 import io.github.redouanebali.service.TeamService;
 import java.util.List;
 import org.springframework.stereotype.Controller;
@@ -20,11 +21,12 @@ public class DrawController {
     this.teamService = teamService;
   }
 
-  @GetMapping("/")
+  @GetMapping("/draw/start")
   public String startDraw(Model model,
                           @RequestParam(defaultValue = "4", required = false) int nbPots,
-                          @RequestParam(defaultValue = "2", required = false) int nbGamesPerPot) {
-    List<Team> teams      = teamService.getTeams();
+                          @RequestParam(defaultValue = "2", required = false) int nbGamesPerPot,
+                          @RequestParam(defaultValue = "C1", required = false) String competition) {
+    List<Team> teams      = teamService.getTeams(Level.getLevel(competition));
     List<Team> drawnTeams = drawService.startDraw(teams, nbPots, nbGamesPerPot);
     model.addAttribute("teams", drawnTeams);
     return "draw-results";

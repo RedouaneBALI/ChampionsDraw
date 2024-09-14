@@ -3,216 +3,216 @@
     "name": "Real Madrid",
     "pot": 1,
     "country": "ES",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Real_Madrid_CF.svg/320px-Real_Madrid_CF.svg.png"
+    "logoUrl": "Real_Madrid_CF.svg.webp"
   },
   {
     "name": "Manchester City",
     "pot": 1,
     "country": "GB",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/e/eb/Manchester_City_FC_badge.svg/1200px-Manchester_City_FC_badge.svg.png"
+    "logoUrl": "Manchester_City_FC_badge.svg.png"
   },
   {
     "name": "Bayern Munich",
     "pot": 1,
     "country": "DE",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg/1200px-FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg.png"
+    "logoUrl": "FC_Bayern_München_logo_(2017).svg.png"
   },
   {
     "name": "Paris Saint-Germain",
     "pot": 1,
     "country": "FR",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a7/Paris_Saint-Germain_F.C..svg/1200px-Paris_Saint-Germain_F.C..svg.png"
+    "logoUrl": "Paris_Saint-Germain_F.C..svg.webp"
   },
   {
     "name": "Liverpool",
     "pot": 1,
     "country": "GB",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Liverpool_FC.svg/1200px-Liverpool_FC.svg.png"
+    "logoUrl": "Liverpool_FC.svg.webp"
   },
   {
     "name": "Inter",
     "pot": 1,
     "country": "IT",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/1200px-FC_Internazionale_Milano_2021.svg.png"
+    "logoUrl": "FC_Internazionale_Milano_2021.svg.png"
   },
   {
     "name": "Dortmund",
     "pot": 1,
     "country": "DE",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Borussia_Dortmund_logo.svg/1200px-Borussia_Dortmund_logo.svg.png"
+    "logoUrl": "Borussia_Dortmund_logo.svg.png"
   },
   {
     "name": "Leipzig",
     "pot": 1,
     "country": "DE",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/0/04/RB_Leipzig_2014_logo.svg/1200px-RB_Leipzig_2014_logo.svg.png"
+    "logoUrl": "RB_Leipzig_2014_logo.svg.png"
   },
   {
     "name": "Barcelona",
     "pot": 1,
     "country": "ES",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/4/47/FC_Barcelona_%28crest%29.svg/1200px-FC_Barcelona_%28crest%29.svg.png"
+    "logoUrl": "FC_Barcelona_(crest).svg.png"
   },
   {
     "name": "Leverkusen",
     "pot": 2,
     "country": "DE",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/5/59/Bayer_04_Leverkusen_logo.svg/1200px-Bayer_04_Leverkusen_logo.svg.png"
+    "logoUrl": "Bayer_04_Leverkusen_logo.svg.webp"
   },
   {
     "name": "Atletico de Madrid",
     "pot": 2,
     "country": "ES",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f9/Atletico_Madrid_Logo_2024.svg/1280px-Atletico_Madrid_Logo_2024.svg.png"
+    "logoUrl": "Atletico_Madrid_Logo_2024.svg.png"
   },
   {
     "name": "Atalanta",
     "pot": 2,
     "country": "IT",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/6/66/AtalantaBC.svg/1200px-AtalantaBC.svg.png"
+    "logoUrl": "Atalanta.png"
   },
   {
     "name": "Juventus",
     "pot": 2,
     "country": "IT",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Juventus_FC_-_pictogram_black_%28Italy%2C_2017%29.svg"
+    "logoUrl": "Juventus_FC_2017_squared_icon_(white).png"
   },
   {
     "name": "Benfica",
     "pot": 2,
     "country": "PT",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/SL_Benfica_logo.svg/1200px-SL_Benfica_logo.svg.png"
+    "logoUrl": "SL_Benfica_logo.svg.png"
   },
   {
     "name": "Arsenal",
     "pot": 2,
     "country": "GB",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Arsenal_FC.svg/1200px-Arsenal_FC.svg.png"
+    "logoUrl": "Arsenal_FC.svg.webp"
   },
   {
     "name": "Club Bruges",
     "pot": 2,
     "country": "BE",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d0/Club_Brugge_KV_logo.svg/1200px-Club_Brugge_KV_logo.svg.png"
+    "logoUrl": "Club_Brugge_KV_logo.svg.png"
   },
   {
     "name": "Shakhtar Donetsk",
     "pot": 2,
     "country": "UA",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/FC_Shakhtar_Donetsk.svg/300px-FC_Shakhtar_Donetsk.svg.png"
+    "logoUrl": "FC_Shakhtar_Donetsk.svg.png"
   },
   {
     "name": "AC Milan",
     "pot": 2,
     "country": "IT",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/264px-Logo_of_AC_Milan.svg.png"
+    "logoUrl": "Logo_of_AC_Milan.svg.png"
   },
   {
     "name": "Feyenoord",
     "pot": 3,
     "country": "NL",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Feyenoord_logo_since_2024.svg/360px-Feyenoord_logo_since_2024.svg.png"
+    "logoUrl": "Feyenoord_logo_since_2024.svg.png"
   },
   {
     "name": "Sporting",
     "pot": 3,
     "country": "PT",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e1/Sporting_Clube_de_Portugal_%28Logo%29.svg/320px-Sporting_Clube_de_Portugal_%28Logo%29.svg.png"
+    "logoUrl": "Sporting_Clube_de_Portugal_(Logo).svg.png"
   },
   {
     "name": "PSV Eindhoven",
     "pot": 3,
     "country": "NL",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/0/05/PSV_Eindhoven.svg/420px-PSV_Eindhoven.svg.png"
+    "logoUrl": "PSV_Eindhoven.svg.png"
   },
   {
     "name": "GNK Dinamo",
     "pot": 3,
     "country": "HR",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/2/21/GNK_Dinamo_Zagreb_badge_in_2019_%282%29.png"
+    "logoUrl": "GNK_Dinamo_Zagreb_badge_in_2019_(2).png"
   },
   {
     "name": "Salzburg",
     "pot": 3,
     "country": "AT",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/7/77/FC_Red_Bull_Salzburg_logo.svg/460px-FC_Red_Bull_Salzburg_logo.svg.png"
+    "logoUrl": "FC_Red_Bull_Salzburg_logo.svg.png"
   },
   {
     "name": "Lille",
     "pot": 3,
     "country": "FR",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/3/3f/Lille_OSC_2018_logo.svg/1200px-Lille_OSC_2018_logo.svg.png"
+    "logoUrl": "Lille_OSC_2018_logo.svg.png"
   },
   {
     "name": "Etoile Rouge",
     "pot": 3,
     "country": "RS",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Grb-fk-crvena-zvezda.svg/langfr-260px-Grb-fk-crvena-zvezda.svg.png"
+    "logoUrl": "Grb-fk-crvena-zvezda.svg.png"
   },
   {
     "name": "Young Boys",
     "pot": 3,
     "country": "CH",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/fr/thumb/c/c2/BSC_Young_Boys.svg/langfr-260px-BSC_Young_Boys.svg.png"
+    "logoUrl": "BSC_Young_Boys.svg.png"
   },
   {
     "name": "Celtic",
     "pot": 3,
     "country": "GB",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/3/35/Celtic_FC.svg/1200px-Celtic_FC.svg.png"
+    "logoUrl": "Celtic_FC.svg.webp"
   },
   {
     "name": "Slovan Bratislava",
     "pot": 4,
     "country": "SK",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/SK_Slovan_Bratislava_logo.svg/langfr-260px-SK_Slovan_Bratislava_logo.svg.png"
+    "logoUrl": "SK_Slovan_Bratislava_logo.svg.png"
   },
   {
     "name": "Monaco",
     "pot": 4,
     "country": "FR",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/fr/thumb/1/1d/Logo_AS_Monaco_FC_2021.svg/langfr-260px-Logo_AS_Monaco_FC_2021.svg.png"
+    "logoUrl": "Logo_AS_Monaco_FC_2021.svg.png"
   },
   {
     "name": "Sparta Prague",
     "pot": 4,
     "country": "CZ",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/AC-Sparta-LOGO2021.svg/langfr-260px-AC-Sparta-LOGO2021.svg.png"
+    "logoUrl": "Sparta Prague.png"
   },
   {
     "name": "Aston Villa",
     "pot": 4,
     "country": "GB",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/fr/thumb/1/14/Aston_Villa_FC_2024.svg/langfr-260px-Aston_Villa_FC_2024.svg.png"
+    "logoUrl": "Aston Villa.png"
   },
   {
     "name": "Bologne",
     "pot": 4,
     "country": "IT",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/fr/thumb/f/fb/Logo_Bologna_FC_-_2018.svg/langfr-260px-Logo_Bologna_FC_-_2018.svg.png"
+    "logoUrl": "Logo_Bologna_FC_-_2018.svg.png"
   },
   {
     "name": "Gerona",
     "pot": 4,
     "country": "ES",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/fr/thumb/5/56/Logo_Girona_FC_-_2022.svg/langfr-260px-Logo_Girona_FC_-_2022.svg.png"
+    "logoUrl": "Logo_Girona_FC_-_2022.svg.png"
   },
   {
     "name": "Stuttgart",
     "pot": 4,
     "country": "DE",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/VfB_Stuttgart_1893_Logo.svg/1200px-VfB_Stuttgart_1893_Logo.svg.png"
+    "logoUrl": "Stuttgart.png"
   },
   {
     "name": "Sturm Graz",
     "pot": 4,
     "country": "AT",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/fr/thumb/2/20/SK_Sturm_Graz_Logo.svg/langfr-260px-SK_Sturm_Graz_Logo.svg.png"
+    "logoUrl": "SK_Sturm_Graz_Logo.svg.png"
   },
   {
     "name": "Brest",
     "pot": 4,
     "country": "FR",
-    "logoUrl": "https://upload.wikimedia.org/wikipedia/fr/thumb/4/4c/Logo_SB29_2010.svg/langfr-260px-Logo_SB29_2010.svg.png"
+    "logoUrl": "Logo_SB29_2010.svg.png"
   }
 ]

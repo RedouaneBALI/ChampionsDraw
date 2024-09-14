@@ -1,6 +1,7 @@
 package io.github.redouanebali.controller;
 
 import io.github.redouanebali.model.Team;
+import io.github.redouanebali.service.Level;
 import io.github.redouanebali.service.TeamService;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,12 @@ public class TeamController {
   }
 
   @GetMapping("/teams/c1")
-  public List<Team> getTeams() {
-    return teamService.getTeams();
+  public List<Team> getC1Teams() {
+    return teamService.getTeams(Level.C1);
+  }
+
+  @GetMapping("/teams/c3")
+  public List<Team> getC3Teams() {
+    return teamService.getTeams(Level.C1);
   }
 }

@@ -1,65 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>UEFA Champions League Draw Results</title>
+  <title>UEFA Champions League & Europa League Draw</title>
   <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #000033;
-            color: white;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: #00ffff;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        .draw-container {
-            background-color: #000066;
-            border-radius: 10px;
-            padding: 20px;
-            overflow-x: auto;
-        }
-        table {
-            border-collapse: separate;
-            border-spacing: 2px;
-            width: 100%;
-        }
-        th, td {
-            padding: 10px;
-            text-align: center;
-            background-color: #000099;
-        }
-        th {
-            background-color: #0000cc;
-            font-weight: bold;
-        }
-        .team-logo {
-            width: 30px;
-            height: 30px;
-            vertical-align: middle;
-            margin-right: 5px;
-        }
-        .team-name {
-            font-weight: bold;
-        }
-        .pot-header {
-            background-color: #0000ff;
-            color: #00ffff;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #000033;
+        color: white;
+        margin: 0;
+        padding: 20px;
+    }
+    h1 {
+        text-align: center;
+        color: #00ffff;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    .draw-container {
+        background-color: #000066;
+        border-radius: 10px;
+        padding: 20px;
+        overflow-x: auto;
+    }
+    table {
+        border-collapse: separate;
+        border-spacing: 2px;
+        width: 100%;
+    }
+    th, td {
+        padding: 10px;
+        text-align: center;
+        background-color: #000099;
+    }
+    th {
+        background-color: #0000cc;
+        font-weight: bold;
+    }
+    .team-logo {
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+    .team-name {
+        font-weight: bold;
+    }
+    .pot-header {
+        background-color: #0000ff;
+        color: #00ffff;
+    }
+    .button-container {
+      display: flex;
+      justify-content: center;
+    }
+    .draw-button {
+        margin: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: white;
+        background-color: #0000cc;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .redraw-button:hover {
+        background-color: #0000ff;
+    }
 
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+    }
 
+    .loading-spinner {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #3498db;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+    }
 
-
-
+    @keyframes spin {
+        0% { transform: translate(-50%, -50%) rotate(0deg); }
+        100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
   </style>
 </head>
 <body>
-<h1>UEFA Champions League 2024/2025 Draw Results</h1>
+<h1>UEFA Champions League & Europa League 2024/2025 Draw</h1>
+<div class="button-container">
+  <button class="draw-button" id="draw-C1">C1 draw &#x1F501;</button>
+  <button class="draw-button" id="draw-C3">C3 draw &#x1F501;</button>
+</div>
+<div class="overlay" id="overlay"></div>
+<div class="loading-spinner" id="loading-spinner"></div>
 <div class="draw-container">
   <table>
     <thead>
@@ -85,9 +134,8 @@
     <tbody>
     <tr th:each="team : ${teams}">
       <td>
-
-        <img class="team-logo" th:alt="${team.name + ' logo'}" th:src="${team.logoUrl}">
-
+        <img class="team-logo" th:alt="${team.name + ' logo'}"
+             th:src="@{/logos/} + ${team.logoUrl}">
         <span class="team-name" th:text="${team.getName()}">Team Name</span>
       </td>
       <td th:each="opponent : ${team.getAllOpponents()}">
@@ -97,5 +145,66 @@
     </tbody>
   </table>
 </div>
+
+<script>
+  let isDrawing = false;
+
+  document.getElementById('draw-C1').addEventListener('click', function() {
+      if (!isDrawing) {
+          handleDraw('C1');
+      }
+  });
+
+  document.getElementById('draw-C3').addEventListener('click', function() {
+      if (!isDrawing) {
+          handleDraw('C3');
+      }
+  });
+
+  function handleDraw(competition) {
+      const spinner = document.getElementById('loading-spinner');
+      const overlay = document.getElementById('overlay');
+      const drawC1Button = document.getElementById('draw-C1');
+      const drawC3Button = document.getElementById('draw-C3');
+
+      isDrawing = true;
+      drawC1Button.disabled = true;
+      drawC3Button.disabled = true;
+
+      spinner.style.display = 'block';
+      overlay.style.display = 'block';
+
+      fetch(`/draw/start?competition=${competition}&nbPots=4&nbGamesPerPot=2`, { method: 'GET' })
+          .then(response => {
+              if (response.ok) {
+                  setTimeout(() => {
+                      window.location.href = `/draw/start?competition=${competition}`;
+                  }, 2000);
+              } else {
+                  alert('Error occurred while redrawing. Please try again.');
+                  resetUI();
+              }
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              alert('Error occurred while redrawing. Please try again.');
+              resetUI();
+          });
+  }
+
+  function resetUI() {
+      const spinner = document.getElementById('loading-spinner');
+      const overlay = document.getElementById('overlay');
+      const drawC1Button = document.getElementById('draw-C1');
+      const drawC3Button = document.getElementById('draw-C3');
+
+      spinner.style.display = 'none';
+      overlay.style.display = 'none';
+
+      drawC1Button.disabled = false;
+      drawC3Button.disabled = false;
+      isDrawing = false;
+  }
+</script>
 </body>
 </html>

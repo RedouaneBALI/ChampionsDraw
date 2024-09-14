@@ -1,0 +1,218 @@
+[
+  {
+    "name": "Roma",
+    "pot": 1,
+    "country": "IT",
+    "logoUrl": "Roma.png"
+  },
+  {
+    "name": "Manchester United",
+    "pot": 1,
+    "country": "GB",
+    "logoUrl": "manchester.png"
+  },
+  {
+    "name": "Porto",
+    "pot": 1,
+    "country": "PT",
+    "logoUrl": "porto.png"
+  },
+  {
+    "name": "Ajax",
+    "pot": 1,
+    "country": "NL",
+    "logoUrl": "ajax.png"
+  },
+  {
+    "name": "Rangers",
+    "pot": 1,
+    "country": "GB",
+    "logoUrl": "rangers.png"
+  },
+  {
+    "name": "Eintracht Frankfurt",
+    "pot": 1,
+    "country": "DE",
+    "logoUrl": "frankfurt.png"
+  },
+  {
+    "name": "Lazio",
+    "pot": 1,
+    "country": "IT",
+    "logoUrl": "lazio.png"
+  },
+  {
+    "name": "Tottenham Hotspur",
+    "pot": 1,
+    "country": "GB",
+    "logoUrl": "tottenham.png"
+  },
+  {
+    "name": "Slavia Prague",
+    "pot": 1,
+    "country": "CZ",
+    "logoUrl": "praha.png"
+  },
+  {
+    "name": "Real Sociedad",
+    "pot": 2,
+    "country": "ES",
+    "logoUrl": "sociedad.png"
+  },
+  {
+    "name": "AZ",
+    "pot": 2,
+    "country": "NL",
+    "logoUrl": "alkmaar.png"
+  },
+  {
+    "name": "Braga",
+    "pot": 2,
+    "country": "PT",
+    "logoUrl": "braga.png"
+  },
+  {
+    "name": "Olympiacos",
+    "pot": 2,
+    "country": "GR",
+    "logoUrl": "olympiacos.png"
+  },
+  {
+    "name": "Lyon",
+    "pot": 2,
+    "country": "FR",
+    "logoUrl": "lyon.png"
+  },
+  {
+    "name": "PAOK",
+    "pot": 2,
+    "country": "GR",
+    "logoUrl": "paok.png"
+  },
+  {
+    "name": "Fenerbahçe",
+    "pot": 2,
+    "country": "TR",
+    "logoUrl": "fenerbahce.png"
+  },
+  {
+    "name": "Maccabi Tel Aviv",
+    "pot": 2,
+    "country": "IL",
+    "logoUrl": "telaviv.png"
+  },
+  {
+    "name": "Ferencváros",
+    "pot": 2,
+    "country": "HU",
+    "logoUrl": "ferencvaros.png"
+  },
+  {
+    "name": "Qarabağ",
+    "pot": 3,
+    "country": "AZ",
+    "logoUrl": "qarabag.png"
+  },
+  {
+    "name": "Galatasaray",
+    "pot": 3,
+    "country": "TR",
+    "logoUrl": "galatasaray.png"
+  },
+  {
+    "name": "Viktoria Plzeň",
+    "pot": 3,
+    "country": "CZ",
+    "logoUrl": "plzen.png"
+  },
+  {
+    "name": "Bodø/Glimt",
+    "pot": 3,
+    "country": "NO",
+    "logoUrl": "bodo.png"
+  },
+  {
+    "name": "Union Saint-Gilloise",
+    "pot": 3,
+    "country": "BE",
+    "logoUrl": "unionsg.png"
+  },
+  {
+    "name": "Dynamo Kyiv",
+    "pot": 3,
+    "country": "UA",
+    "logoUrl": "kyiv.png"
+  },
+  {
+    "name": "Ludogorets Razgrad",
+    "pot": 3,
+    "country": "BG",
+    "logoUrl": "ludogorets.png"
+  },
+  {
+    "name": "Midtjylland",
+    "pot": 3,
+    "country": "DK",
+    "logoUrl": "midtjylland.png"
+  },
+  {
+    "name": "Malmö FF",
+    "pot": 3,
+    "country": "SE",
+    "logoUrl": "malmo.png"
+  },
+  {
+    "name": "Athletic Bilbao",
+    "pot": 4,
+    "country": "ES",
+    "logoUrl": "athletic.png"
+  },
+  {
+    "name": "TSG Hoffenheim",
+    "pot": 4,
+    "country": "DE",
+    "logoUrl": "hoffenheim.png"
+  },
+  {
+    "name": "Nice",
+    "pot": 4,
+    "country": "FR",
+    "logoUrl": "nice.png"
+  },
+  {
+    "name": "Anderlecht",
+    "pot": 4,
+    "country": "BE",
+    "logoUrl": "anderlecht.png"
+  },
+  {
+    "name": "Twente",
+    "pot": 4,
+    "country": "NL",
+    "logoUrl": "twente.png"
+  },
+  {
+    "name": "Beşiktaş",
+    "pot": 4,
+    "country": "TR",
+    "logoUrl": "besiktas.png"
+  },
+  {
+    "name": "FCSB",
+    "pot": 4,
+    "country": "RO",
+    "logoUrl": "fcsb.png"
+  },
+  {
+    "name": "RFS",
+    "pot": 4,
+    "country": "LV",
+    "logoUrl": "rfs.png"
+  },
+  {
+    "name": "IF Elfsborg",
+    "pot": 4,
+    "country": "SE",
+    "logoUrl": "elfsborg.png"
+  }
+]

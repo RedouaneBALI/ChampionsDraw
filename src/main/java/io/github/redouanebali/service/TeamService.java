@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class TeamService {
 
-  public List<Team> getTeams() {
+  public List<Team> getTeams(Level level) {
     try {
       ObjectMapper mapper      = new ObjectMapper();
-      InputStream  inputStream = getClass().getResourceAsStream("/teams-c1.json");
+      InputStream  inputStream = getClass().getResourceAsStream(level.getTeamsUrl());
       return mapper.readValue(inputStream, new TypeReference<List<Team>>() {
       });
     } catch (Exception e) {
