@@ -1,39 +1,54 @@
-package org.example;
+package io.github.redouanebali.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
 @Getter
+@NoArgsConstructor
 public class Team {
 
-  String     name;
-  int        pot;
-  List<Team> homeOpponents; // playing home
-  List<Team> awayOpponents; // playing away
-  Locale     country;
+  String name;
+  int    pot;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  List<Team> homeOpponents = new ArrayList<>();
+  // playing home
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  List<Team> awayOpponents = new ArrayList<>();
+  // playing away
+  Locale country;
+  private String logoUrl;
 
-  public Team(String name, int pot) {
+  public Team(String name, int pot, Locale country, String logoUrl) {
     this.name          = name;
     this.pot           = pot;
     this.homeOpponents = new ArrayList<>();
     this.awayOpponents = new ArrayList<>();
+    this.country       = country;
+    this.logoUrl       = logoUrl;
+  }
+
+  public Team(String name, int pot) {
+    this(name, pot, null, "");
   }
 
   public Team(String name, int pot, Locale country) {
-    this(name, pot);
-    this.country = country;
+    this(name, pot, country, "");
   }
 
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   public List<Team> getAllOpponents() {
     List<Team> allTeams = new ArrayList<>(homeOpponents.size() + awayOpponents.size());
     allTeams.addAll(homeOpponents);
     allTeams.addAll(awayOpponents);
-    return Collections.unmodifiableList(allTeams); // Optional: to make it read-only
+    allTeams.sort(Comparator.comparingInt(Team::getPot));
+    return Collections.unmodifiableList(allTeams);
   }
 
   public int getNbHomeOpponentByPot(int pot) {
@@ -45,7 +60,7 @@ public class Team {
   }
 
   public int getNbOpponentBycountry(Locale country) {
-    return (int) getAllOpponents().stream().filter(t -> t.getCountry().getCountry().equals(country.getCountry())).count();
+    return (int) getAllOpponents().stream().filter(t -> t.getCountry().equals(country)).count();
   }
 
   public void addOpponent(Team opponent, boolean isHome) {

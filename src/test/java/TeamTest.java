@@ -1,7 +1,7 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import io.github.redouanebali.model.Team;
 import java.util.Locale;
-import org.example.Team;
 import org.junit.jupiter.api.Test;
 
 public class TeamTest {

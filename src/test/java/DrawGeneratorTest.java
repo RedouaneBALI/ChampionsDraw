@@ -2,9 +2,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.redouanebali.model.DrawGenerator;
+import io.github.redouanebali.model.Team;
+import java.io.InputStream;
 import java.util.List;
-import org.example.DrawGenerator;
-import org.example.Team;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -57,9 +60,9 @@ public class DrawGeneratorTest {
   public void testGetPotentialOpponents() {
     team2B.addOpponent(team1A, true);
     team2B.addOpponent(team1B, false);
-    DrawGenerator generator              = new DrawGenerator(teams3x3);
-    List<Team>    potentialOpponentsHome = generator.getPotentialOpponents(team1C, 2, 2, true);
-    List<Team>    potentialOpponentsAway = generator.getPotentialOpponents(team1C, 2, 2, false);
+    DrawGenerator generator              = new DrawGenerator();
+    List<Team>    potentialOpponentsHome = generator.getPotentialOpponents(teams3x3, team1C, 2, 2, true);
+    List<Team>    potentialOpponentsAway = generator.getPotentialOpponents(teams3x3, team1C, 2, 2, false);
     assertFalse(potentialOpponentsHome.contains(team2B));
     assertFalse(potentialOpponentsAway.contains(team2B));
   }
@@ -68,33 +71,33 @@ public class DrawGeneratorTest {
   public void testGetPotentialOpponents2() {
     team1A.addOpponent(team1B, true);
     team1A.addOpponent(team1C, false);
-    DrawGenerator generator = new DrawGenerator(teams3x3);
-    assertTrue(generator.getPotentialOpponents(team1A, 2, 2, false).contains(team2B));
-    assertTrue(generator.getPotentialOpponents(team1B, 2, 2, true).contains(team2B));
+    DrawGenerator generator = new DrawGenerator();
+    assertTrue(generator.getPotentialOpponents(teams3x3, team1A, 2, 2, false).contains(team2B));
+    assertTrue(generator.getPotentialOpponents(teams3x3, team1B, 2, 2, true).contains(team2B));
   }
 
   @Test
   public void testGetPotentialOpponentsHomeAway() {
-    DrawGenerator generator = new DrawGenerator(teams3x3);
+    DrawGenerator generator = new DrawGenerator();
     team1A.addOpponent(team2B, true); // 1A vs 2B
     team2A.addOpponent(team1C, true); // 2A vs 1C
     // 1C cannot play away VS 2A
-    assertFalse(generator.getPotentialOpponents(team1C, 2, 2, true).contains(team2A));
+    assertFalse(generator.getPotentialOpponents(teams3x3, team1C, 2, 2, true).contains(team2A));
     // 2C cannot play away VS 1A
-    assertFalse(generator.getPotentialOpponents(team2C, 1, 2, true).contains(team1A));
+    assertFalse(generator.getPotentialOpponents(teams3x3, team2C, 1, 2, true).contains(team1A));
     team1A.addOpponent(team3C, false); // 3C vs 1A
     team2A.addOpponent(team3C, false); // 3C vs 2A
     // 1B cannot play away vs 3C
-    assertFalse(generator.getPotentialOpponents(team1B, 3, 2, true).contains(team3C));
+    assertFalse(generator.getPotentialOpponents(teams3x3, team1B, 3, 2, true).contains(team3C));
     // 2B cannot play away vs 3C
-    assertFalse(generator.getPotentialOpponents(team2B, 3, 2, true).contains(team3C));
+    assertFalse(generator.getPotentialOpponents(teams3x3, team2B, 3, 2, true).contains(team3C));
   }
 
 
   @Test
   public void testStartDraw3x3() {
-    DrawGenerator generator = new DrawGenerator(teams3x3);
-    generator.startDraw(3, 2);
+    DrawGenerator generator = new DrawGenerator();
+    generator.startDraw(teams3x3, 3, 2);
 
     for (Team team : teams3x3) {
       assertEquals(6, team.getAllOpponents().size());
@@ -111,8 +114,8 @@ public class DrawGeneratorTest {
 
   @Test
   public void testStartDraw4x4() {
-    DrawGenerator generator = new DrawGenerator(teams4x4);
-    generator.startDraw(4, 2);
+    DrawGenerator generator = new DrawGenerator();
+    generator.startDraw(teams4x4, 4, 2);
     for (Team team : teams4x4) {
       assertEquals(8, team.getAllOpponents().size());
       assertEquals(1, team.getNbHomeOpponentByPot(1));
@@ -127,9 +130,35 @@ public class DrawGeneratorTest {
   }
 
   @Test
+  public void testStartDrawRealTeams() {
+    DrawGenerator generator = new DrawGenerator();
+    try {
+      ObjectMapper mapper      = new ObjectMapper();
+      InputStream  inputStream = getClass().getResourceAsStream("/teams-c1.json");
+      List<Team> realTeams = mapper.readValue(inputStream, new TypeReference<List<Team>>() {
+      });
+      assertEquals(36, realTeams.size());
+      generator.startDraw(realTeams, 4, 2);
+      for (Team team : realTeams) {
+        assertEquals(8, team.getAllOpponents().size());
+        assertEquals(1, team.getNbHomeOpponentByPot(1));
+        assertEquals(1, team.getNbAwayOpponentByPot(1));
+        assertEquals(1, team.getNbHomeOpponentByPot(2));
+        assertEquals(1, team.getNbAwayOpponentByPot(2));
+        assertEquals(1, team.getNbHomeOpponentByPot(3));
+        assertEquals(1, team.getNbAwayOpponentByPot(3));
+        assertEquals(1, team.getNbHomeOpponentByPot(4));
+        assertEquals(1, team.getNbAwayOpponentByPot(4));
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("JSON Error", e);
+    }
+  }
+
+  @Test
   public void testAddGameDeleteGame() {
-    DrawGenerator generator = new DrawGenerator(teams4x4);
-    generator.startDraw(4, 2);
+    DrawGenerator generator = new DrawGenerator();
+    generator.startDraw(teams4x4, 4, 2);
 
     Team teamA = generator.getGames().get(0).getTeamA();
     Team teamB = generator.getGames().get(0).getTeamB();
@@ -143,10 +172,11 @@ public class DrawGeneratorTest {
 
   @Test
   public void testGetNbOpponentsByPot() {
-    DrawGenerator generator = new DrawGenerator(teams4x4);
+    DrawGenerator generator = new DrawGenerator();
     assertEquals(0, generator.getNbOpponentByPot(team1A, 1, true));
-    generator.startDraw(4, 2);
+    generator.startDraw(teams4x4, 4, 2);
     assertEquals(1, generator.getNbOpponentByPot(team1A, 1, true));
     assertEquals(1, generator.getNbOpponentByPot(team1A, 1, false));
   }
+
 }

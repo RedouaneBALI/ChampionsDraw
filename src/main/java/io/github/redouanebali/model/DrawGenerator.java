@@ -1,4 +1,4 @@
-package org.example;
+package io.github.redouanebali.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,35 +9,39 @@ import lombok.Getter;
 @Getter
 public class DrawGenerator {
 
-  private final List<Team> teams;
+  //private final List<Team> teams;
   private final List<Game> games                      = new ArrayList<>();
   private final int        MAX_OPPONENTS_SAME_COUNTRY = 2;
+  private final int        NB_TRY                     = 2000;
 
-  public DrawGenerator(List<Team> teams) {
-    this.teams = teams;
-  }
-
-  public void startDraw(int nbPots, int nbGamesPerPot) {
-    while (!allOpponentsDefined(nbPots * nbGamesPerPot)) {
+  public List<Team> startDraw(List<Team> teams, int nbPots, int nbGamesPerPot) {
+    int nbTry = 0;
+    while (nbTry < NB_TRY && !allOpponentsDefined(teams, nbPots * nbGamesPerPot)) {
+      nbTry++;
       for (Team team : teams) {
         if (!team.hasEnoughOpponents(nbPots * nbGamesPerPot)) {
           for (int pot = 1; pot <= nbPots; pot++) {
             while (team.getNbHomeOpponentByPot(pot) < nbGamesPerPot / 2) {
-              Team opponent = getRandomTeam(team, pot, nbGamesPerPot, false);
+              Team opponent = getRandomTeam(teams, team, pot, nbGamesPerPot, false);
               addGame(team, opponent); //home
             }
             while (team.getNbAwayOpponentByPot(pot) < nbGamesPerPot / 2) {
-              Team opponent = getRandomTeam(team, pot, nbGamesPerPot, true);
+              Team opponent = getRandomTeam(teams, team, pot, nbGamesPerPot, true);
               addGame(opponent, team); //away
             }
           }
         }
       }
     }
-    printDraw();
+    sortTeams(teams);
+    return teams;
   }
 
-  private void printDraw() {
+  public void sortTeams(List<Team> teams) {
+    teams.forEach(Team::sortTeamDrawByPot);
+  }
+
+  public void printDraw(List<Team> teams) {
 
     // display draw
     for (Team team : teams) {
@@ -51,7 +55,7 @@ public class DrawGenerator {
     }
   }
 
-  public boolean allOpponentsDefined(int expectedGamesCount) {
+  public boolean allOpponentsDefined(List<Team> teams, int expectedGamesCount) {
     return teams.stream().allMatch(team -> team.hasEnoughOpponents(expectedGamesCount));
   }
 
@@ -79,12 +83,12 @@ public class DrawGenerator {
     game.getTeamB().getAwayOpponents().removeIf(t -> t.equals(game.getTeamA()));
   }
 
-  public Team getRandomTeam(Team team, int pot, int nbGamesPerPot, boolean opponentHome) {
-    List<Team> potentialOpponents = getPotentialOpponents(team, pot, nbGamesPerPot, opponentHome);
+  public Team getRandomTeam(List<Team> teams, Team team, int pot, int nbGamesPerPot, boolean opponentHome) {
+    List<Team> potentialOpponents = getPotentialOpponents(teams, team, pot, nbGamesPerPot, opponentHome);
 
     if (potentialOpponents.size() == 0) {
       deleteAllGamesBasedOnPots(team.getPot(), pot);
-      return getRandomTeam(team, pot, nbGamesPerPot, opponentHome);
+      return getRandomTeam(teams, team, pot, nbGamesPerPot, opponentHome);
     }
     Random random      = new Random();
     int    randomIndex = random.nextInt(potentialOpponents.size());
@@ -93,7 +97,7 @@ public class DrawGenerator {
 
   public void deleteAllGamesBasedOnPots(int teamPot, int opponentPot) {
     Iterator<Game> iterator = games.iterator();
-    System.out.println("rolling back pots " + teamPot + "&" + opponentPot + "...");
+    //System.out.println("rolling back pots " + teamPot + "&" + opponentPot + "...");
     while (iterator.hasNext()) {
       Game game = iterator.next();
       if (areTeamsFromPots(game, teamPot, opponentPot)) {
@@ -109,7 +113,7 @@ public class DrawGenerator {
     return (teamAPot == pot1 && teamBPot == pot2) || (teamAPot == pot2 && teamBPot == pot1);
   }
 
-  public List<Team> getPotentialOpponents(Team team, int pot, int nbGamesPerPot, boolean opponentHome) {
+  public List<Team> getPotentialOpponents(List<Team> teams, Team team, int pot, int nbGamesPerPot, boolean opponentHome) {
 
     return teams.stream()
                 .filter(t -> !t.getName().equals(team.getName())) // other teams
@@ -118,8 +122,7 @@ public class DrawGenerator {
                 .filter(t -> opponentHome && t.getNbHomeOpponentByPot(team.getPot()) < nbGamesPerPot / 2
                              || !opponentHome && t.getNbAwayOpponentByPot(team.getPot()) < nbGamesPerPot / 2)
                 .filter(t -> t.getCountry() == null || !t.getCountry()
-                                                         .getCountry()
-                                                         .equals(team.getCountry().getCountry())) // from another country
+                                                         .equals(team.getCountry())) // from another country
                 .filter(t -> t.getCountry() == null
                              || t.getNbOpponentBycountry(team.getCountry())
                                 < MAX_OPPONENTS_SAME_COUNTRY) // opponent didn't play too much same country
