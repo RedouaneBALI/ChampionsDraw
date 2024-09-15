@@ -1,10 +1,11 @@
-Quick project to implement the algorithm used for the UEFA Champion's League 2024/2025 draw.
+Little project to implement the algorithm used for the UEFA Champions League and Europa League
+2024/2025 draw.
 
 - 36 teams split in 4 pots
 - Each team has to play randomly 2 opponents of each pots
 - A club cannot play against another club of its country
 - Clubs cannot play more than 2 clubs of a same country
-- Each club should play 4 games home and 4 games away
+- Each club should play 1 game home and 1 game away for each opponent of a pot
 
 See simulator
 at [https://uefa-draw-simulator.oa.r.appspot.com/](https://uefa-draw-simulator.oa.r.appspot.com/)

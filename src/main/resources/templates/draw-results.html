@@ -3,6 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>UEFA Champions League & Europa League Draw Simulator 2024/2025</title>
+
+  <!-- Nouvelles balises meta pour le SEO -->
+  <meta
+      content="Simulate the UEFA Champions League and Europa League 2024/2025 draw with our interactive tool. Get realistic draw results for C1 and C3 competitions."
+      name="description">
+  <meta
+      content="UEFA, Champions League, Europa League, draw simulator, football, soccer, C1, C3, 2024/2025 season, tirage au sort, ligue des champions, coupe d'europe"
+      name="keywords">
+  <meta content="Redouane" name="Redouane">
+
+  <!-- Open Graph meta tags for better social media sharing -->
+  <meta content="UEFA Champions League & Europa League Draw Simulator 2024/2025"
+        property="og:title">
+  <meta
+      content="Simulate the UEFA Champions League and Europa League 2024/2025 draw with our interactive tool."
+      property="og:description">
+  <meta content="website" property="og:type">
+  <meta content="https://uefa-draw-simulator.oa.r.appspot.com/" property="og:url">
+
   <title>UEFA Champions League & Europa League Draw simulation</title>
   <style>
     body {
@@ -42,10 +63,14 @@
         width: 30px;
         height: 30px;
         vertical-align: middle;
-        margin-right: 5px;
     }
     .team-name {
         font-weight: bold;
+    }
+    .team-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     .pot-header {
         background-color: #0000ff;
@@ -99,6 +124,17 @@
         0% { transform: translate(-50%, -50%) rotate(0deg); }
         100% { transform: translate(-50%, -50%) rotate(360deg); }
     }
+
+    /* Media query pour les écrans de laptop et plus grands */
+    @media (min-width: 768px) {
+        .team-info {
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+        .team-logo {
+            margin-right: 5px;
+        }
+    }
   </style>
 </head>
 <body>
@@ -134,9 +170,11 @@
     <tbody>
     <tr th:each="team : ${teams}">
       <td>
-        <img class="team-logo" th:alt="${team.name + ' logo'}"
-             th:src="@{/logos/} + ${team.logoUrl}">
-        <span class="team-name" th:text="${team.getName()}">Team Name</span>
+        <div class="team-info">
+          <img class="team-logo" th:alt="${team.name + ' logo'}"
+               th:src="@{/logos/} + ${team.logoUrl}">
+          <span class="team-name" th:text="${team.getName()}">Team Name</span>
+        </div>
       </td>
       <td th:each="opponent : ${team.getAllOpponents()}">
         <span th:text="${opponent.getName()}">Opponent Name</span>
