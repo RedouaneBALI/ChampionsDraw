@@ -14,8 +14,9 @@ public class DrawGenerator {
   private final int        MAX_OPPONENTS_SAME_COUNTRY = 2;
   private final int        NB_TRY                     = 2000;
 
-  public List<Team> startDraw(List<Team> teams, int nbPots, int nbGamesPerPot) {
-    int nbTry = 0;
+  public List<Team> startDraw(List<Team> teams, int nbGamesPerPot) {
+    int nbTry  = 0;
+    int nbPots = getNbPots(teams);
     while (nbTry < NB_TRY && !allOpponentsDefined(teams, nbPots * nbGamesPerPot)) {
       nbTry++;
       for (Team team : teams) {
@@ -35,6 +36,13 @@ public class DrawGenerator {
     }
     sortTeams(teams);
     return teams;
+  }
+
+  private int getNbPots(final List<Team> teams) {
+    return (int) teams.stream()
+                      .map(Team::getPot)
+                      .distinct()
+                      .count();
   }
 
   public void sortTeams(List<Team> teams) {

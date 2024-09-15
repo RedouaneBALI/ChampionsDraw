@@ -97,7 +97,7 @@ public class DrawGeneratorTest {
   @Test
   public void testStartDraw3x3() {
     DrawGenerator generator = new DrawGenerator();
-    generator.startDraw(teams3x3, 3, 2);
+    generator.startDraw(teams3x3, 2);
 
     for (Team team : teams3x3) {
       assertEquals(6, team.getAllOpponents().size());
@@ -115,7 +115,7 @@ public class DrawGeneratorTest {
   @Test
   public void testStartDraw4x4() {
     DrawGenerator generator = new DrawGenerator();
-    generator.startDraw(teams4x4, 4, 2);
+    generator.startDraw(teams4x4, 2);
     for (Team team : teams4x4) {
       assertEquals(8, team.getAllOpponents().size());
       assertEquals(1, team.getNbHomeOpponentByPot(1));
@@ -130,7 +130,7 @@ public class DrawGeneratorTest {
   }
 
   @Test
-  public void testStartDrawRealTeams() {
+  public void testStartC1Draw() {
     DrawGenerator generator = new DrawGenerator();
     try {
       ObjectMapper mapper      = new ObjectMapper();
@@ -138,7 +138,33 @@ public class DrawGeneratorTest {
       List<Team> realTeams = mapper.readValue(inputStream, new TypeReference<List<Team>>() {
       });
       assertEquals(36, realTeams.size());
-      generator.startDraw(realTeams, 4, 2);
+      generator.startDraw(realTeams, 2);
+      for (Team team : realTeams) {
+        assertEquals(8, team.getAllOpponents().size());
+        assertEquals(1, team.getNbHomeOpponentByPot(1));
+        assertEquals(1, team.getNbAwayOpponentByPot(1));
+        assertEquals(1, team.getNbHomeOpponentByPot(2));
+        assertEquals(1, team.getNbAwayOpponentByPot(2));
+        assertEquals(1, team.getNbHomeOpponentByPot(3));
+        assertEquals(1, team.getNbAwayOpponentByPot(3));
+        assertEquals(1, team.getNbHomeOpponentByPot(4));
+        assertEquals(1, team.getNbAwayOpponentByPot(4));
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("JSON Error", e);
+    }
+  }
+
+  @Test
+  public void testStartC3Draw() {
+    DrawGenerator generator = new DrawGenerator();
+    try {
+      ObjectMapper mapper      = new ObjectMapper();
+      InputStream  inputStream = getClass().getResourceAsStream("/teams-c3.json");
+      List<Team> realTeams = mapper.readValue(inputStream, new TypeReference<List<Team>>() {
+      });
+      assertEquals(36, realTeams.size());
+      generator.startDraw(realTeams, 2);
       for (Team team : realTeams) {
         assertEquals(8, team.getAllOpponents().size());
         assertEquals(1, team.getNbHomeOpponentByPot(1));
@@ -158,7 +184,7 @@ public class DrawGeneratorTest {
   @Test
   public void testAddGameDeleteGame() {
     DrawGenerator generator = new DrawGenerator();
-    generator.startDraw(teams4x4, 4, 2);
+    generator.startDraw(teams4x4, 2);
 
     Team teamA = generator.getGames().get(0).getTeamA();
     Team teamB = generator.getGames().get(0).getTeamB();
@@ -174,7 +200,7 @@ public class DrawGeneratorTest {
   public void testGetNbOpponentsByPot() {
     DrawGenerator generator = new DrawGenerator();
     assertEquals(0, generator.getNbOpponentByPot(team1A, 1, true));
-    generator.startDraw(teams4x4, 4, 2);
+    generator.startDraw(teams4x4, 2);
     assertEquals(1, generator.getNbOpponentByPot(team1A, 1, true));
     assertEquals(1, generator.getNbOpponentByPot(team1A, 1, false));
   }

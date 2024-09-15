@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class DrawService {
 
-  public List<Team> startDraw(List<Team> teams, int nbPots, int nbGamesPerPot) {
+  public List<Team> startDraw(List<Team> teams, int nbGamesPerPot) {
     DrawGenerator drawGenerator = new DrawGenerator();
-    return drawGenerator.startDraw(teams, nbPots, nbGamesPerPot);
+    return drawGenerator.startDraw(teams, nbGamesPerPot);
   }
 
 }
