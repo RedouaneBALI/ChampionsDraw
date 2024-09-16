@@ -1,6 +1,6 @@
 package io.github.redouanebali.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -16,10 +16,11 @@ public class Team {
 
   String name;
   int    pot;
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonIgnore
   List<Team> homeOpponents = new ArrayList<>();
   // playing home
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  // @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonIgnore
   List<Team> awayOpponents = new ArrayList<>();
   // playing away
   Locale country;
@@ -42,13 +43,18 @@ public class Team {
     this(name, pot, country, "");
   }
 
-  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  // @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonIgnore
   public List<Team> getAllOpponents() {
     List<Team> allTeams = new ArrayList<>(homeOpponents.size() + awayOpponents.size());
     allTeams.addAll(homeOpponents);
     allTeams.addAll(awayOpponents);
     allTeams.sort(Comparator.comparingInt(Team::getPot));
     return Collections.unmodifiableList(allTeams);
+  }
+
+  public List<String> getAllOpponentsNames() {
+    return getAllOpponents().stream().map(t -> t.getName()).toList();
   }
 
   public int getNbHomeOpponentByPot(int pot) {

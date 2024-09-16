@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -146,46 +146,9 @@
 <div class="overlay" id="overlay"></div>
 <div class="loading-spinner" id="loading-spinner"></div>
 
-<div id="resultsContainer">
-  <div th:fragment="resultsFragment">
-    <table>
-      <thead>
-      <tr>
-        <th>TEAMS</th>
-        <th class="pot-header" colspan="2">POT 1</th>
-        <th class="pot-header" colspan="2">POT 2</th>
-        <th class="pot-header" colspan="2">POT 3</th>
-        <th class="pot-header" colspan="2">POT 4</th>
-      </tr>
-      <tr>
-        <th></th>
-        <th>HOME</th>
-        <th>AWAY</th>
-        <th>HOME</th>
-        <th>AWAY</th>
-        <th>HOME</th>
-        <th>AWAY</th>
-        <th>HOME</th>
-        <th>AWAY</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="team : ${teams}">
-        <td>
-          <div class="team-info">
-            <img class="team-logo" th:alt="${team.name + ' logo'}"
-                 th:src="@{/logos/} + ${team.logoUrl}">
-            <span class="team-name" th:text="${team.getName()}">Team Name</span>
-          </div>
-        </td>
-        <td th:each="opponent : ${team.getAllOpponents()}">
-          <span th:text="${opponent.getName()}">Opponent Name</span>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+<div id="resultsContainer"></div>
+
+<script src="/js/draw-results.js"></script>
 
 <script>
   let isDrawing = false;
@@ -226,8 +189,6 @@
         return;
     }
 
-   console.log(teamsFile);
-
     fetch(teamsFile)
     .then(response => response.json())
     .then(teams => {
@@ -239,20 +200,19 @@
             body: JSON.stringify(teams)
         });
     })
-    .then(response => response.text()) // Traite la réponse comme du texte HTML
-    .then(html => {
-        // Insère le fragment HTML à la place du conteneur de résultats
-        document.getElementById('resultsContainer').innerHTML = html;
-        setTimeout(() => {
-            resetUI(); // Cache le spinner après l'insertion
-        }, 1500);
+    .then(response => response.json()) // Traite la réponse comme du JSON
+    .then(drawnTeams => {
+        // Stocke les équipes tirées dans le sessionStorage
+        sessionStorage.setItem('drawnTeams', JSON.stringify(drawnTeams));
+        // Redirige vers la page des résultats
+        window.location.href = '/draw-results';
     })
     .catch(error => {
         console.error('Error:', error);
         alert('Error occurred while redrawing. Please try again.');
         resetUI();
     });
-}
+  }
 
   function resetUI() {
       const spinner = document.getElementById('loading-spinner');
