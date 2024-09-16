@@ -134,7 +134,7 @@ public class DrawGeneratorTest {
     DrawGenerator generator = new DrawGenerator();
     try {
       ObjectMapper mapper      = new ObjectMapper();
-      InputStream  inputStream = getClass().getResourceAsStream("/teams-c1.json");
+      InputStream  inputStream = getClass().getResourceAsStream("/static/teams-c1.json");
       List<Team> realTeams = mapper.readValue(inputStream, new TypeReference<List<Team>>() {
       });
       assertEquals(36, realTeams.size());
@@ -160,7 +160,7 @@ public class DrawGeneratorTest {
     DrawGenerator generator = new DrawGenerator();
     try {
       ObjectMapper mapper      = new ObjectMapper();
-      InputStream  inputStream = getClass().getResourceAsStream("/teams-c3.json");
+      InputStream  inputStream = getClass().getResourceAsStream("/static/teams-c3.json");
       List<Team> realTeams = mapper.readValue(inputStream, new TypeReference<List<Team>>() {
       });
       assertEquals(36, realTeams.size());

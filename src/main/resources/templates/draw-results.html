@@ -145,43 +145,46 @@
 </div>
 <div class="overlay" id="overlay"></div>
 <div class="loading-spinner" id="loading-spinner"></div>
-<div class="draw-container">
-  <table>
-    <thead>
-    <tr>
-      <th>TEAMS</th>
-      <th class="pot-header" colspan="2">POT 1</th>
-      <th class="pot-header" colspan="2">POT 2</th>
-      <th class="pot-header" colspan="2">POT 3</th>
-      <th class="pot-header" colspan="2">POT 4</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th>HOME</th>
-      <th>AWAY</th>
-      <th>HOME</th>
-      <th>AWAY</th>
-      <th>HOME</th>
-      <th>AWAY</th>
-      <th>HOME</th>
-      <th>AWAY</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="team : ${teams}">
-      <td>
-        <div class="team-info">
-          <img class="team-logo" th:alt="${team.name + ' logo'}"
-               th:src="@{/logos/} + ${team.logoUrl}">
-          <span class="team-name" th:text="${team.getName()}">Team Name</span>
-        </div>
-      </td>
-      <td th:each="opponent : ${team.getAllOpponents()}">
-        <span th:text="${opponent.getName()}">Opponent Name</span>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+
+<div id="resultsContainer">
+  <div th:fragment="resultsFragment">
+    <table>
+      <thead>
+      <tr>
+        <th>TEAMS</th>
+        <th class="pot-header" colspan="2">POT 1</th>
+        <th class="pot-header" colspan="2">POT 2</th>
+        <th class="pot-header" colspan="2">POT 3</th>
+        <th class="pot-header" colspan="2">POT 4</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th>HOME</th>
+        <th>AWAY</th>
+        <th>HOME</th>
+        <th>AWAY</th>
+        <th>HOME</th>
+        <th>AWAY</th>
+        <th>HOME</th>
+        <th>AWAY</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="team : ${teams}">
+        <td>
+          <div class="team-info">
+            <img class="team-logo" th:alt="${team.name + ' logo'}"
+                 th:src="@{/logos/} + ${team.logoUrl}">
+            <span class="team-name" th:text="${team.getName()}">Team Name</span>
+          </div>
+        </td>
+        <td th:each="opponent : ${team.getAllOpponents()}">
+          <span th:text="${opponent.getName()}">Opponent Name</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <script>
@@ -200,35 +203,56 @@
   });
 
   function handleDraw(competition) {
-      const spinner = document.getElementById('loading-spinner');
-      const overlay = document.getElementById('overlay');
-      const drawC1Button = document.getElementById('draw-C1');
-      const drawC3Button = document.getElementById('draw-C3');
+    const spinner = document.getElementById('loading-spinner');
+    const overlay = document.getElementById('overlay');
+    const drawC1Button = document.getElementById('draw-C1');
+    const drawC3Button = document.getElementById('draw-C3');
 
-      isDrawing = true;
-      drawC1Button.disabled = true;
-      drawC3Button.disabled = true;
+    isDrawing = true;
+    drawC1Button.disabled = true;
+    drawC3Button.disabled = true;
 
-      spinner.style.display = 'block';
-      overlay.style.display = 'block';
+    spinner.style.display = 'block';
+    overlay.style.display = 'block';
 
-      fetch(`/draw/start?competition=${competition}&nbPots=4&nbGamesPerPot=2`, { method: 'GET' })
-          .then(response => {
-              if (response.ok) {
-                  setTimeout(() => {
-                      window.location.href = `/draw/start?competition=${competition}`;
-                  }, 1500);
-              } else {
-                  alert('Error occurred while redrawing. Please try again.');
-                  resetUI();
-              }
-          })
-          .catch(error => {
-              console.error('Error:', error);
-              alert('Error occurred while redrawing. Please try again.');
-              resetUI();
-          });
-  }
+    let teamsFile = '';
+    if (competition === 'C1') {
+        teamsFile = '/teams-c1.json';
+    } else if (competition === 'C3') {
+        teamsFile = '/teams-c3.json';
+    } else {
+        alert('Invalid competition');
+        resetUI();
+        return;
+    }
+
+   console.log(teamsFile);
+
+    fetch(teamsFile)
+    .then(response => response.json())
+    .then(teams => {
+        return fetch('/draw/start?nbGamesPerPot=2', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(teams)
+        });
+    })
+    .then(response => response.text()) // Traite la réponse comme du texte HTML
+    .then(html => {
+        // Insère le fragment HTML à la place du conteneur de résultats
+        document.getElementById('resultsContainer').innerHTML = html;
+        setTimeout(() => {
+            resetUI(); // Cache le spinner après l'insertion
+        }, 1500);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error occurred while redrawing. Please try again.');
+        resetUI();
+    });
+}
 
   function resetUI() {
       const spinner = document.getElementById('loading-spinner');

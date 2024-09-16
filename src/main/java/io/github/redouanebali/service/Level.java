@@ -7,8 +7,8 @@ import lombok.Getter;
 
 public enum Level {
 
-  C1("C1", "/teams-c1.json"),
-  C3("C3", "/teams-c3.json");
+  C1("C1", "/static/teams-c1.json"),
+  C3("C3", "/static/teams-c3.json");
 
   private static final Map<String, Level> LEVELS_BY_ALIAS = Stream.of(values())
                                                                   .collect(Collectors.toMap(Level::getCompetition, level -> level));
